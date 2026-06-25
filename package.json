@@ -1,0 +1,48 @@
+{
+  "name": "axis-platform-sdk",
+  "version": "0.2.0",
+  "description": "Platform-side SDK for the AXIS protocol. The verifier/'bouncer' side: when an AXIS agent shows up at your platform, verify its identity + delegation + scope and decide whether to accept, scope, or boot it. Zero runtime dependencies; runs in Node 20+, Cloudflare Workers, and modern browsers.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./scope": "./src/scope.js",
+    "./gate": "./src/gate.js",
+    "./authorizer": "./src/authorizer.js",
+    "./ledger": "./src/ledger.js",
+    "./blocklist": "./src/blocklist.js",
+    "./reportback": "./src/reportback.js"
+  },
+  "scripts": {
+    "test": "node --test test/scope.test.js test/verify.test.js test/authorizer.test.js test/ledger.test.js test/blocklist.test.js test/reportback.test.js"
+  },
+  "keywords": [
+    "axis",
+    "axis-protocol",
+    "agent-identity",
+    "verifier",
+    "platform",
+    "authorization"
+  ],
+  "author": "Kipple Labs, Inc.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "homepage": "https://github.com/MachinesOfDesire/axis-platform-sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MachinesOfDesire/axis-platform-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MachinesOfDesire/axis-platform-sdk/issues"
+  },
+  "files": [
+    "src/",
+    "examples/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE"
+  ]
+}
