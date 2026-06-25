@@ -2,7 +2,22 @@
 
 All notable changes to `axis-platform-sdk`. Pre-release; not yet published to npm.
 
-## [0.2.0] — 2026-06-25 (unreleased)
+## [0.2.1] — 2026-06-25
+
+### Added — TypeScript declarations
+
+- The package now ships `.d.ts` types (it stays authored in plain JS). A
+  complete `src/index.d.ts` covers the full main-entry surface (verify,
+  authorizer, scope, gate, client, ledger, blocklist, reportback); each subpath
+  export (`./scope`, `./gate`, `./authorizer`, `./ledger`, `./blocklist`,
+  `./reportback`) re-exports its slice. `package.json` exposes them via a
+  top-level `types` field and per-subpath `types` conditions in `exports`.
+- This lets TypeScript consumers (e.g. Owyhee "The Door", swapping its vendored
+  copy for the npm dependency) drop their hand-maintained declaration and get
+  types from the package. Verified by a clean-room install + strict `tsc` of a
+  consumer importing from the root and a subpath.
+
+## [0.2.0] — 2026-06-25
 
 First npm publish + public repo. Adds the stateful half (ledger, blocklist,
 reputation report-back) and reconciles it with Owyhee "The Door" (governor#27)

@@ -16,7 +16,7 @@ The registry already does the hard part. `GET /verify?token=<AIT>` checks the si
 npm install axis-platform-sdk
 ```
 
-Zero dependencies. Runs in Node 20+, Cloudflare Workers, and modern browsers.
+Zero dependencies. Runs in Node 20+, Cloudflare Workers, and modern browsers. Ships TypeScript declarations (the package is authored in plain JS).
 
 ## Quickstart — gate a Worker endpoint
 
