@@ -1,6 +1,6 @@
 {
   "name": "axis-platform-sdk",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Platform-side SDK for the AXIS protocol. The verifier/'bouncer' side: when an AXIS agent shows up at your platform, verify its identity + delegation + scope and decide whether to accept, scope, or boot it. Zero runtime dependencies; runs in Node 20+, Cloudflare Workers, and modern browsers.",
   "type": "module",
   "main": "src/index.js",
@@ -9,13 +9,14 @@
     ".": { "types": "./src/index.d.ts", "default": "./src/index.js" },
     "./scope": { "types": "./src/scope.d.ts", "default": "./src/scope.js" },
     "./gate": { "types": "./src/gate.d.ts", "default": "./src/gate.js" },
+    "./express": { "types": "./src/express.d.ts", "default": "./src/express.js" },
     "./authorizer": { "types": "./src/authorizer.d.ts", "default": "./src/authorizer.js" },
     "./ledger": { "types": "./src/ledger.d.ts", "default": "./src/ledger.js" },
     "./blocklist": { "types": "./src/blocklist.d.ts", "default": "./src/blocklist.js" },
     "./reportback": { "types": "./src/reportback.d.ts", "default": "./src/reportback.js" }
   },
   "scripts": {
-    "test": "node --test test/scope.test.js test/verify.test.js test/authorizer.test.js test/ledger.test.js test/blocklist.test.js test/reportback.test.js"
+    "test": "node --test test/scope.test.js test/verify.test.js test/authorizer.test.js test/ledger.test.js test/blocklist.test.js test/reportback.test.js test/express.test.js"
   },
   "keywords": [
     "axis",
@@ -41,7 +42,11 @@
   "files": [
     "src/",
     "examples/",
+    "templates/",
+    "badges/",
     "README.md",
+    "QUICKSTART.md",
+    "CASE-STUDY-offworld.md",
     "CHANGELOG.md",
     "LICENSE",
     "NOTICE"

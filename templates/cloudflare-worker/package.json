@@ -1,0 +1,17 @@
+{
+  "name": "axis-gate-worker-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Drop-in starter: gate a Cloudflare Worker platform on AXIS verified-agent identity.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "axis-platform-sdk": "^0.2.1"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

@@ -1,6 +1,73 @@
 # Changelog
 
-All notable changes to `axis-platform-sdk`. Pre-release; not yet published to npm.
+All notable changes to `axis-platform-sdk`.
+
+## [0.3.0] — Unreleased
+
+Productization pass: repackages the published SDK as a free, drop-in **product
+for platforms** — the platform-side equivalent of the AXIS Prime MCP's tester
+packaging — and adds a first-class Express/Connect adapter. The engine
+(`verify` / `authorizer` / `ledger` / `blocklist` / `reportback`) is unchanged.
+
+### Added — Express/Connect middleware (new subpath export)
+
+- **`axis-platform-sdk/express`** exports **`axisGate(opts)`** (and `extractToken`)
+  — the same verify-and-bounce logic as `aitGate`, but as Express/Connect
+  middleware `(req, res, next)`. On accept it sets `req.axis` and calls `next()`;
+  on deny it responds `401` (no token) / `403` (policy) / `503` (unexpected verify
+  error) with `{ error, message }`. Zero-dependency: it imports nothing from
+  Express, so it also runs on Connect, restify, and bare `http`. Ships
+  `src/express.d.ts` and an `exports` map entry. 6 new unit tests (suite now 46).
+  This is the first-class home for the Node drop-in (previously a copy-paste
+  template file).
+
+### Added — adoption tiers, badge kit, forward-compat docs
+
+- **Adoption tiers (A/B/C)** documented in the README: identity acceptance →
+  access policy → scope/tier enforcement, all the same `verifyAgent` call with more
+  options set.
+- **"Verified by AXIS" badge kit** (`badges/`): three zero-dependency SVGs (light,
+  dark, compact) for platforms that show verification status on agent-authored
+  content, plus a usage README. Shipped in the package `files`.
+- **Forward-compatibility note** on provenance gating: account-age / signup-method /
+  abuse-flag signals are protocol-defined but not yet registry-exposed; when they
+  ship they arrive as additive optional `verifyAgent` options + additive verdict
+  fields — no breaking change for existing integrations.
+- **"Staying up to date"** section: self-host is pull-based (semver + GitHub
+  Releases + CHANGELOG; Dependabot/Renovate); an opt-in integrator updates list is
+  planned.
+
+### Added — product wrapper (docs + drop-in starters)
+
+- **README rewritten as a product pitch** ("let verified agents into your
+  platform; boot the bad ones; free, drop-in, no account required"). The full API
+  reference is preserved lower in the same file. Headlines the free, standalone,
+  registry-only path; positions Owyhee "The Door" as the optional managed upgrade,
+  not a requirement.
+- **`QUICKSTART.md`** — "gate your platform in 10 minutes": pick a starter →
+  decide audience + scope → drop in the gate → publish `/.well-known/axis-access`
+  → test a deny → test an admit.
+- **`templates/node-express/`** — a complete, runnable Express drop-in: a ~30-line
+  `axisGate(...)` middleware (`axis-gate.js`), a full worked server with door
+  policy + arrivals ledger + runtime blocklist + `/admin` console, and a `smoke`
+  test that asserts the deny paths against the live registry (verified passing).
+- **`templates/cloudflare-worker/`** — the same as a deployable Worker
+  (`wrangler dev` / `wrangler deploy`), promoting `examples/bouncer-worker.js`
+  into a clean starter with `wrangler.toml` + `package.json`.
+- **`CASE-STUDY-offworld.md`** — the Offworld News comment-gating integration,
+  explicitly labeled as a case study (an example of using the tool), not the
+  product.
+
+### Notes
+
+- Standard scope vocabulary: starters and docs use `content:comment` (the standard
+  AXIS scope for commenting), not the older non-standard `comments:write`.
+- `examples/` are left in place as teaching references; `templates/` are the
+  copy-paste starting point. `templates/` is added to the published `files` list.
+- The only code change is the additive `src/express.js` adapter + its `.d.ts` and
+  `exports` entry; the existing engine modules are untouched. The 40 prior tests
+  are unchanged (suite now 46 with the Express tests). The previously published
+  surface remains fully backward-compatible — `/express` is purely additive.
 
 ## [0.2.1] — 2026-06-25
 
