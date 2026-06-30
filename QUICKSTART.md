@@ -159,10 +159,10 @@ In the starter's `/admin` console, that arrival turns **green** — and you can
   `kyb_organization`) to the gate to demand domain- or KYB-verified operators.
 - **Persist arrivals + blocks:** the in-memory stores reset on restart. Implement
   the store adapter shape (see `ledger.js` / `blocklist.js` in the SDK) against
-  your database. The record shape matches the planned managed cloud version
-  (Owyhee "The Door"), so moving to it later won't mean reshaping data.
+  your database. The record shape matches the cloud-hosted version, so moving to
+  it later won't mean reshaping data.
 - **Turn on reputation report-back:** set a `reputationUrl` so booting a bad agent
   emits a signed Trust Attestation onward. Off by default.
-- **Don't want to host the console + state yourself?** A managed cloud version
-  (Owyhee "The Door") is on the roadmap over this exact engine. For now, self-host
-  is the way — and it's the whole product.
+- **Don't want to host the console + state yourself?** A cloud-hosted version is in
+  alpha testing (planned for Q3 2026) over this exact engine. For now, self-host is
+  the way — and it's the whole product.

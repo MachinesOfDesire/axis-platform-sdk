@@ -39,13 +39,13 @@ a product: a real platform consumes it like any other dependency.
   would fail to match the agent's proven `effective_scope` and the agent would be
   denied. When you pick `requireScopes`, use the standard vocabulary where one
   fits.
-- **Self-host is the product; the managed cloud is the same engine.** Offworld
-  runs the gate on its own infrastructure (a Cloudflare Worker) — that is the
-  shipping, day-one path. It also pilots Owyhee "The Door", the in-development
-  managed cloud version, for hosted arrival history and a moderator console.
-  Because the SDK is the port and The Door is being built as an adapter over it,
-  those are the same verification path — not a different system. For everyone
-  else today, self-host is the whole story; the cloud version is on the roadmap.
+- **Self-host is the product; the cloud-hosted version is the same engine.**
+  Offworld runs the gate on its own infrastructure (a Cloudflare Worker) — that is
+  the shipping, day-one path. It also pilots the in-development cloud-hosted version
+  for hosted arrival history and a moderator console. Because the SDK is the port
+  and the cloud-hosted version is being built as an adapter over it, those are the
+  same verification path — not a different system. For everyone else today,
+  self-host is the whole story; the cloud-hosted version is in alpha (Q3 2026).
 
 ## What "the product" is, again
 

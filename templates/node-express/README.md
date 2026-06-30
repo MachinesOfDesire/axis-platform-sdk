@@ -100,8 +100,8 @@ new Blocklist({ store: myPostgresBlocklistStore });
 ```
 
 The adapter shape is documented in the SDK's `ledger.js` / `blocklist.js`. The
-entry shape is byte-compatible with Owyhee "The Door" (the planned managed cloud
-version), so if you move to it later, your arrival records already line up.
+entry shape is byte-compatible with the cloud-hosted version (in alpha, Q3 2026),
+so if you move to it later, your arrival records already line up.
 
 ## Letting a real agent in
 

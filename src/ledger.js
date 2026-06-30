@@ -8,13 +8,12 @@
  * store. Zero-infra by default (in-memory); a real platform plugs in D1 /
  * SQLite / Postgres via the adapter shape below.
  *
- * Canonical adapter: Owyhee "The Door" (kipple-governor, governor#27) is the
- * shipped, D1-backed product instance of this port — its `arrivals` table +
- * `recordArrival()` ARE this ledger over D1. This module is the library form
- * (the shape + an in-memory default); The Door is the production adapter. The
- * entry shape below is deliberately byte-compatible with The Door's
- * `ArrivalRecord` / `arrivals` columns so there is ONE arrival record across
- * the SDK and the product, not two.
+ * Canonical adapter: the cloud-hosted version is the D1-backed product instance
+ * of this port — its `arrivals` table + `recordArrival()` ARE this ledger over
+ * D1. This module is the library form (the shape + an in-memory default); the
+ * cloud-hosted version is the production adapter. The entry shape below is
+ * deliberately byte-compatible with its `ArrivalRecord` / `arrivals` columns so
+ * there is ONE arrival record across the SDK and the cloud product, not two.
  *
  * Trust note: the only scope worth recording is `effective_scope` (the
  * registry's chain-walked, trustworthy scope), which is exactly what a verdict
@@ -77,18 +76,18 @@ export class MemoryLedgerStore {
 
 /**
  * Normalize a verdict (from verifyAgent) into a ledger entry. The output is
- * byte-compatible with The Door's `ArrivalRecord` (governor#27) so the SDK and
- * the product share one arrival shape.
+ * byte-compatible with the cloud-hosted version's `ArrivalRecord` so the SDK and
+ * the cloud product share one arrival shape.
  *
  * `decision` defaults from the verdict (accepted -> 'auto_allow', else
  * 'denied'); a caller may override it with a manual-review state a real bouncer
  * needs ('held' | 'approved' | 'booted'). `created_at` is epoch ms (Date.now()),
- * matching The Door's column; for an ISO string use
+ * matching the cloud-hosted version's column; for an ISO string use
  * `new Date(entry.created_at).toISOString()`.
  *
  * @param {object} verdict             A verifyAgent verdict.
  * @param {object} [fields]
- * @param {string} [fields.audience]          Platform audience (optional metadata; The Door doesn't persist it).
+ * @param {string} [fields.audience]          Platform audience (optional metadata; the cloud-hosted version doesn't persist it).
  * @param {string} [fields.gate_id]           Which gate was requested.
  * @param {string} [fields.requested_action]  Human-facing action label.
  * @param {string} [fields.display_name]      Enriched presentation name.

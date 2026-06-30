@@ -21,7 +21,7 @@ test('records an accepted arrival (Door-compatible shape)', async () => {
   assert.equal(rows[0].decision, 'auto_allow'); // Door vocabulary, not 'accepted'
   assert.equal(rows[0].audience, 'comments.mysite.com');
   assert.deepEqual(rows[0].effective_scope, ['comments:write']);
-  // Fields carried through from the verdict, matching The Door's arrivals columns:
+  // Fields carried through from the verdict, matching the cloud-hosted version's arrivals columns:
   assert.equal(rows[0].tier, 'domain');
   assert.equal(rows[0].delegation_valid, true);
   assert.equal(rows[0].gate_id, 'comments:write');

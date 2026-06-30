@@ -42,8 +42,8 @@ packaging — and adds a first-class Express/Connect adapter. The engine
 - **README rewritten as a product pitch** ("let verified agents into your
   platform; boot the bad ones; free, drop-in, no account required"). The full API
   reference is preserved lower in the same file. Headlines the free, standalone,
-  registry-only path; positions Owyhee "The Door" as the optional managed upgrade,
-  not a requirement.
+  registry-only path; positions the cloud-hosted version (in alpha, Q3 2026) as an
+  optional upgrade, not a requirement.
 - **`QUICKSTART.md`** — "gate your platform in 10 minutes": pick a starter →
   decide audience + scope → drop in the gate → publish `/.well-known/axis-access`
   → test a deny → test an admit.
@@ -79,16 +79,16 @@ packaging — and adds a first-class Express/Connect adapter. The engine
   export (`./scope`, `./gate`, `./authorizer`, `./ledger`, `./blocklist`,
   `./reportback`) re-exports its slice. `package.json` exposes them via a
   top-level `types` field and per-subpath `types` conditions in `exports`.
-- This lets TypeScript consumers (e.g. Owyhee "The Door", swapping its vendored
-  copy for the npm dependency) drop their hand-maintained declaration and get
+- This lets TypeScript consumers (e.g. the cloud-hosted version, swapping its
+  vendored copy for the npm dependency) drop their hand-maintained declaration and get
   types from the package. Verified by a clean-room install + strict `tsc` of a
   consumer importing from the root and a subpath.
 
 ## [0.2.0] — 2026-06-25
 
 First npm publish + public repo. Adds the stateful half (ledger, blocklist,
-reputation report-back) and reconciles it with Owyhee "The Door" (governor#27)
-so the SDK and the product share one arrival/block shape.
+reputation report-back) and reconciles it with the cloud-hosted version so the
+SDK and the cloud product share one arrival/block shape.
 
 ### Added — the stateful half (ledger, blocklist, reputation report-back)
 
@@ -100,25 +100,25 @@ so the SDK and the product share one arrival/block shape.
   trustworthy `effective_scope` is recorded.
 - **`Blocklist` (`src/blocklist.js`)** — a runtime, stateful block list over the
   same adapter shape. Blocks by `operator_id` AND by `agent_id` (agent-level
-  blocking is the SDK's superset over The Door's operator-only `operator_blocks`).
+  blocking is the SDK's superset over the cloud-hosted version's operator-only `operator_blocks`).
   `blockedOperatorIds()` feeds verifyAgent's `blockedOperators`; `checkVerdict()`
   enforces agent-level blocks post-verify (needs the resolved agent_id).
   `gatedWithBlocklist(gate, blocklist)` wraps a gate.
 
-### Reconciled with The Door (single source of truth, no duplication)
+### Reconciled with the cloud-hosted version (single source of truth, no duplication)
 
-- The ledger entry shape is now byte-compatible with The Door's `ArrivalRecord`
+- The ledger entry shape is now byte-compatible with the cloud-hosted version's `ArrivalRecord`
   / `arrivals` columns: carries `tier`, `delegation_valid`, `gate_id`,
   `requested_action`, `display_name`; `created_at` is epoch ms (was an ISO `ts`);
   `decision` uses the `auto_allow | denied | held | approved | booted` vocabulary
   (was `accepted | denied`), with the manual-review states available via a
   `recordEntry(..., { decision })` override.
 - Blocklist meta is `{ reason, created_at }` (epoch ms), matching `operator_blocks`.
-- The SDK is positioned as the **port + in-memory default**; The Door is the
-  canonical **D1-backed adapter**. README documents the mapping table. The SDK
-  ships the genuinely-new pieces The Door lacks (agent-level blocking, reputation
-  emit); The Door keeps its own D1 state layer and, post-publish, depends on this
-  package instead of vendoring it.
+- The SDK is positioned as the **port + in-memory default**; the cloud-hosted
+  version is the canonical **D1-backed adapter**. README documents the mapping
+  table. The SDK ships the genuinely-new pieces the cloud-hosted version lacks
+  (agent-level blocking, reputation emit); the cloud-hosted version keeps its own
+  D1 state layer and, post-publish, depends on this package instead of vendoring it.
 - **Reputation report-back (`src/reportback.js`)** — `reportFlag()` builds a
   protocol-shaped negative **Trust Attestation** (AXIS Layer 3; SPEC §4.5),
   signs it with the platform's own Ed25519 key (`getPlatformKey()`, WebCrypto,

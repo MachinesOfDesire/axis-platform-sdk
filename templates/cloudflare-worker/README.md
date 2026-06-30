@@ -75,5 +75,5 @@ runtime blocklist ("boot this one"), and a tiny `/admin` console.
 The in-memory ledger/blocklist reset when the isolate recycles. For durable
 arrivals + blocks, add a D1 binding in `wrangler.toml` and implement the SDK's
 documented store adapter shape against it (see `ledger.js` / `blocklist.js` in
-the SDK). The arrival record shape is byte-compatible with Owyhee "The Door" (the
-planned managed cloud version), so moving to it later is a lift, not a rewrite.
+the SDK). The arrival record shape is byte-compatible with the cloud-hosted version
+(in alpha, Q3 2026), so moving to it later is a lift, not a rewrite.

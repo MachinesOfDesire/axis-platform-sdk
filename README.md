@@ -57,11 +57,11 @@ platform makes **one outbound HTTPS call** and gets back a trustworthy verdict.
   server makes (the agent's token); we never see your content or your users.
 - **Apache-2.0.** Use it, fork it, ship it.
 
-Self-host is the whole product today. A managed cloud version (**Owyhee "The
-Door"**) — a hosted console, durable arrival history, and a richer policy engine —
-is on the roadmap for teams who'd rather not run it themselves. You will never
-need it to run the self-host path. See [Self-host today / managed cloud on the
-roadmap](#self-host-today--managed-cloud-on-the-roadmap).
+Self-host is the whole product today. A cloud-hosted version — a hosted console,
+durable arrival history, and a richer policy engine — is in alpha testing, planned
+for release in Q3 2026, for teams who'd rather not run it themselves. You will
+never need it to run the self-host path. See [Self-host today / cloud-hosted in
+alpha](#self-host-today--cloud-hosted-in-alpha).
 
 ---
 
@@ -124,21 +124,21 @@ And the stateful half a real bouncer needs (all zero-infra by default):
 
 ---
 
-## Self-host today / managed cloud on the roadmap
+## Self-host today / cloud-hosted in alpha
 
-Today this SDK *is* the product: you run it in your own backend, free. A managed
-cloud version (**Owyhee "The Door"**) is in development for teams who'd rather not
-host the console and the state themselves.
+Today this SDK *is* the product: you run it in your own backend, free. A
+cloud-hosted version is in alpha testing (planned for release in Q3 2026) for
+teams who'd rather not host the console and the state themselves.
 
-| | **This SDK (free, self-host) — available now** | **Owyhee "The Door" (managed cloud) — on the roadmap** |
+| | **This SDK (free, self-hosted) — available now** | **Cloud-hosted — alpha, Q3 2026** |
 | --- | --- | --- |
 | Identity verification | ✅ full (against the public registry) | same engine |
 | Scope / tier / operator policy | ✅ `SwitchAuthorizer` (on/off gates) | + granular relationship/attribute rules |
 | Arrivals + blocklist | ✅ your store (in-memory default; D1/SQLite/Postgres adapter) | hosted, durable, multi-tenant |
 | Admin console | ✅ a reference HTML page you own | a hosted console |
-| Cost / setup | free, nothing to run | a managed product (coming) |
+| Cost / setup | free, nothing to run | a hosted product (alpha) |
 
-The SDK is designed as the **port**; the managed cloud version is built as an
+The SDK is designed as the **port**; the cloud-hosted version is built as an
 **adapter** over the same engine, with byte-compatible arrival/block record
 shapes. That's a deliberate design choice so that when the cloud version ships,
 moving to it is a lift, not a rewrite — and you are never forced up.
@@ -210,9 +210,9 @@ agent (axis-protocol-sdk)  ──presents AIT──>  YOUR PLATFORM (axis-platfo
 The [`axis-protocol-sdk`](https://github.com/MachinesOfDesire/axis-protocol-sdk)
 and the [AXIS Prime MCP](https://github.com/MachinesOfDesire/axis-mcp) are what an
 *agent* uses to get and present an identity. **This** SDK is the other end of the
-wire — the inbound identity gate. It is distinct from the Governor (the
-operator-side *outbound* gateway) and from generic AI gateways (TrueFoundry,
-Portkey, …), which govern an operator's outbound LLM calls. This is the *inbound*
+wire — the inbound identity gate. It is distinct from the operator-side
+*outbound* gateway, and from generic AI gateways (TrueFoundry, Portkey, …), which
+govern an operator's outbound LLM calls. This is the *inbound*
 bouncer.
 
 A worked, real-world integration is documented in
@@ -243,8 +243,8 @@ itself.
   and bare `http`.
 - **`denialResponse(verdict)`** — turns a denied verdict into a 401/403 `Response`.
 - **`scopeCovers(granted, required)` / `coversAll(granted, required[])`** — the
-  AXIS scope matcher (ported verbatim from the Governor's, so operator and
-  platform sides agree).
+  AXIS scope matcher (ported verbatim from the operator-side gateway's, so
+  operator and platform sides agree).
 - **`enrich(agentId, token, opts)`** — fetch the agent's presentation layer
   (display name, tier) for a console UI.
 - **`loadAccessPolicy(platformBaseUrl)`** — read a platform's published
@@ -312,8 +312,9 @@ await ledger.byOperator('axis:acme:op');           // arrivals from one operator
 
 Each entry records `{ agent_id, operator_id, created_at, tier, delegation_valid,
 effective_scope, gate_id, requested_action, display_name, decision, reason,
-audience }` — the same shape as Owyhee "The Door"'s `arrivals` record, so the SDK
-and the product share one arrival definition. `decision` is `auto_allow | denied |
+audience }` — the same shape the cloud-hosted version uses for its `arrivals`
+record, so the SDK and the cloud product share one arrival definition. `decision`
+is `auto_allow | denied |
 held | approved | booted`; `created_at` is epoch ms. Only the trustworthy
 `effective_scope` is recorded, never the AIT's self-declared scope. A ledger write
 failure never changes the verdict.
@@ -342,9 +343,9 @@ registry (which stays identity-only). See `examples/bouncer-worker.js` for a
 reference admin surface over the ledger + blocklist, and `templates/` for the
 deployable starters.
 
-### Single source of truth: the SDK is the port, The Door is the adapter
+### Single source of truth: the SDK is the port, the cloud-hosted version is the adapter
 
-| SDK (this package, the port)        | The Door (the D1-backed product adapter)        |
+| SDK (this package, the port)        | Cloud-hosted version (the D1-backed product adapter) |
 | ----------------------------------- | ----------------------------------------------- |
 | `AccessLedger` + `recordEntry`      | `arrivals` table + `recordArrival()`            |
 | `Blocklist` (operator-level)        | `operator_blocks` table + `blockedOperators()`  |
@@ -352,11 +353,11 @@ deployable starters.
 | `Blocklist` agent-level *(superset)* | *(not yet — an additive `agent_blocks` table)*  |
 | `reportFlag` / reputation emit *(new)* | *(not yet — the open emit half is here)*      |
 
-The entry/meta shapes are deliberately byte-compatible with The Door's columns so
-there is **one** arrival/block record across the SDK and the managed cloud version
-— fold in, don't duplicate. A platform that needs its own store implements the
-documented adapter shape; The Door (in development) is being built as the worked
-example of doing exactly that over Cloudflare D1.
+The entry/meta shapes are deliberately byte-compatible with the cloud-hosted
+version's columns so there is **one** arrival/block record across the SDK and the
+cloud product — fold in, don't duplicate. A platform that needs its own store
+implements the documented adapter shape; the cloud-hosted version (in alpha) is the
+worked example of doing exactly that over Cloudflare D1.
 
 ## Install
 

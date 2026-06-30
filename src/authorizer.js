@@ -1,8 +1,8 @@
 /**
  * The Authorizer port + the free-tier SwitchAuthorizer.
  *
- * Owyhee (and any platform) always does IDENTITY verification first — is this a
- * real, non-revoked agent with a trustworthy effective_scope (verifyAgent ->
+ * The cloud-hosted version (and any platform) always does IDENTITY verification
+ * first — is this a real, non-revoked agent with a trustworthy effective_scope (verifyAgent ->
  * registry). That part is fixed and never pluggable.
  *
  * The authorization DECISION is the pluggable, monetizable layer. Every
