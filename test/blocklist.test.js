@@ -72,5 +72,5 @@ test('listAgents / listOperators expose entries with meta', async () => {
   assert.equal(agents.length, 1);
   assert.equal(agents[0].id, 'axis:acme:bot');
   assert.equal(agents[0].meta.reason, 'flooded');
-  assert.equal(typeof agents[0].meta.created_at, 'number'); // epoch ms, matches The Door's operator_blocks
+  assert.equal(typeof agents[0].meta.created_at, 'number'); // epoch ms, matches the cloud-hosted version's operator_blocks
 });

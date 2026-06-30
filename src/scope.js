@@ -1,8 +1,8 @@
 // Scope matching for the AXIS scope grammar (spec v0.2 §4.4).
 //
-// Ported verbatim from kipple-governor/src/scope-match.ts so the operator side
-// (Governor proxy chain-walk) and the platform side (this SDK) agree on scope
-// semantics exactly. Colon-separated segments; `*` is a wildcard for ONE
+// Ported verbatim from the operator-side gateway's scope matcher so the operator
+// side (the outbound proxy chain-walk) and the platform side (this SDK) agree on
+// scope semantics exactly. Colon-separated segments; `*` is a wildcard for ONE
 // segment, not multi; no recursion. If the protocol grammar changes, change it
 // in both places.
 

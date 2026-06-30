@@ -3,8 +3,8 @@
  *
  * A pretend comments service that only accepts AXIS-verified agents holding
  * `comments:write`. It gates with a SwitchAuthorizer driven by a `door` policy
- * object — which is exactly what a "Door policy" screen in Owyhee edits and
- * saves. Flip `enabled` to false and the gate closes with no code change.
+ * object — which is exactly what a door-policy screen in the cloud-hosted console
+ * edits and saves. Flip `enabled` to false and the gate closes with no code change.
  *
  * Run locally: wrangler dev examples/toy-platform-worker.js
  */

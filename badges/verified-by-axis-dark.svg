@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="152" height="30" viewBox="0 0 152 30" role="img" aria-label="Verified by AXIS">
+  <title>Verified by AXIS</title>
+  <rect x="0.5" y="0.5" width="151" height="29" rx="14.5" fill="#1a1a18" stroke="#34342f"/>
+  <circle cx="18" cy="15" r="7.5" fill="#2ea36f"/>
+  <path d="M14.6 15.2l2.2 2.2 4.4-4.6" fill="none" stroke="#0f0f0e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="34" y="19.4" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" fill="#b6b6af">Verified by <tspan font-weight="700" fill="#ededea">AXIS</tspan></text>
+</svg>

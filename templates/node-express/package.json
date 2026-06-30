@@ -1,0 +1,19 @@
+{
+  "name": "axis-gate-express-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Drop-in starter: gate an Express platform on AXIS verified-agent identity.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "smoke": "node smoke.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "axis-platform-sdk": "^0.3.0",
+    "express": "^4.22.2"
+  }
+}

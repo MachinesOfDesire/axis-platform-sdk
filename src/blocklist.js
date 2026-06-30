@@ -12,13 +12,13 @@
  *      whole operator).
  *   2. Mutation at runtime (block / unblock) backed by a pluggable store.
  *
- * Canonical adapter: Owyhee "The Door" (governor#27) ships the OPERATOR-level
+ * Canonical adapter: the cloud-hosted version ships the OPERATOR-level
  * half of this port as its `operator_blocks` table + `blockedOperators()`,
  * merged into the SwitchAuthorizer policy at authorize time. This module is the
- * library form of that, plus the AGENT-level half The Door does not have yet
- * (an additive `agent_blocks` table is the natural way for it to adopt it — a
- * fast-follow, not a requirement). Block metadata is `{ reason, created_at }`
- * (epoch ms), matching The Door's columns so the shapes are one.
+ * library form of that, plus the AGENT-level half the cloud-hosted version does
+ * not have yet (an additive `agent_blocks` table is the natural way for it to
+ * adopt it — a fast-follow, not a requirement). Block metadata is `{ reason,
+ * created_at }` (epoch ms), matching its columns so the shapes are one.
  *
  * Same adapter shape as the ledger — a tiny CRUD port a platform implements
  * against D1 / SQLite / Postgres. Default is in-memory.

@@ -119,7 +119,7 @@ export const DEFAULT_REGISTRY: string;
 export type ArrivalDecision = 'auto_allow' | 'denied' | 'held' | 'approved' | 'booted';
 
 /**
- * One arrival record. Byte-compatible with Owyhee "The Door"'s `arrivals`
+ * One arrival record. Byte-compatible with the cloud-hosted version's `arrivals`
  * columns / `ArrivalRecord` (minus the adapter's own id/org_id PKs).
  * `created_at` is epoch ms.
  */
